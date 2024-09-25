@@ -37,12 +37,20 @@ app.layout = html.Div([
 @app.callback(
     Output("graph", "figure"), 
     Input("checklist", "value"))
+
 def update_line_chart(continents):
+
     # Filter the data based on the selected continents
     mask = df['continent'].isin(continents)
+
     # Create a line plot using Plotly Express
     fig = px.line(df[mask], 
         x="year", y="lifeExp", color='country')
+    
+    # Set all traces to be hidden by default (legend only)
+    for trace in fig.data:
+        trace.visible = 'legendonly'
+        
     return fig
 
 # Run the Dash app
