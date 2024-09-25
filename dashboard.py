@@ -78,18 +78,18 @@ def update_chart(selected_groups):
 
     # Add Rain data (bars)
     #if 'rain' in selected_groups:
-        rain_df = df[df['Type'] == 'Rain']
-        for sensor_id in rain_df['sensor_id'].unique():
-            sensor_data = rain_df[rain_df['sensor_id'] == sensor_id]
-            fig.add_trace(
-                go.Bar(
-                    x=sensor_data['Date'],
-                    y=sensor_data['Value'],
-                    name=f'Rain {sensor_id}',
-                    yaxis='y2',
-                    opacity=0.6
-                )
+    rain_df = df[df['Type'] == 'Rain']
+    for sensor_id in rain_df['sensor_id'].unique():
+        sensor_data = rain_df[rain_df['sensor_id'] == sensor_id]
+        fig.add_trace(
+            go.Bar(
+                x=sensor_data['Date'],
+                y=sensor_data['Value'],
+                name=f'Rain {sensor_id}',
+                yaxis='y2',
+                opacity=0.6
             )
+        )
 
     # Update layout for dual y-axes
     fig.update_layout(
