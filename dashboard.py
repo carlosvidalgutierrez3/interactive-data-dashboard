@@ -57,7 +57,8 @@ def update_chart(selected_groups):
                     y=sensor_data['Value'],
                     mode='lines',
                     name=f'Soil Moisture {sensor_id}',
-                    yaxis='y1'
+                    yaxis='y1',
+                    visible='legendonly'  # Default visibility set to legendonly
                 )
             )
 
@@ -72,7 +73,8 @@ def update_chart(selected_groups):
                     y=sensor_data['Value'],
                     mode='lines',
                     name=f'Soil Moisture {sensor_id}',
-                    yaxis='y1'
+                    yaxis='y1',
+                    visible='legendonly'  # Default visibility set to legendonly
                 )
             )
 
