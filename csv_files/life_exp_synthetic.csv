@@ -1,0 +1,19 @@
+continent,year,lifeExp,country
+Americas,1990,65,US
+Americas,1995,67,US
+Americas,1999,69,US
+Americas,1990,61,Mexico
+Americas,1995,62,Mexico
+Americas,1999,63,Mexico
+Oceania,1990,66,Australia
+Oceania,1995,66,Australia
+Oceania,1999,67,Australia
+Oceania,1990,62,New Zealand
+Oceania,1995,64,New Zealand
+Oceania,1999,68,New Zealand
+Europe,1990,70,Sweden
+Europe,1995,72,Sweden
+Europe,1999,73,Sweden
+Europe,1990,70,Spain
+Europe,1995,74,Spain
+Europe,1999,75,Spain
