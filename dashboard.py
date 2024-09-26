@@ -2,10 +2,13 @@
 File Name: checkboxes.py
 Author: Carlos Vidal
 Date Created: 2024-09-25
-Last Modified: 2024-09-25
-Version: 1.0
+Last Modified: 2024-09-26
+Version: 1.1
 Description:
     Use checkboxes to toogle datasets.
+
+Changes:
+- Now we use a different csv for every sensor type
 """
 
 from dash import Dash, dcc, html, Input, Output
@@ -17,11 +20,14 @@ app = Dash(__name__)
 
 # Load combined data from CSV
 # CSV format: Date, Value, Type, sensor_id
-df = pd.read_csv('csv_files/combined_data.csv')
+# df = pd.read_csv('csv_files/combined_data.csv')
+rain_df = pd.read_csv('csv_files/Type_Rain.csv')
+Pessl_df = pd.read_csv('csv_files/Type_Pessl.csv')
+SM_df = pd.read_csv('csv_files/Type_SM.csv')
 
 # Define the app layout
 app.layout = html.Div([
-    html.H4('Soil Moisture and Rain Data'),
+    html.H4('Soil Moisture and Rain Data v1.2'),
     dcc.Graph(
         id="graph",
         style={'width': '80vw', 'height': '80vh'}
@@ -48,7 +54,7 @@ def update_chart(selected_groups):
 
     # Add SM data (lines)
     if 'SM' in selected_groups:
-        SM_df = df[df['Type'] == 'SM']
+        # SM_df = df[df['Type'] == 'SM']
         for sensor_id in SM_df['sensor_id'].unique():
             sensor_data = SM_df[SM_df['sensor_id'] == sensor_id]
             fig.add_trace(
@@ -64,7 +70,7 @@ def update_chart(selected_groups):
 
     # Add Pessl data (lines)
     if 'Pessl' in selected_groups:
-        Pessl_df = df[df['Type'] == 'Pessl']
+        # Pessl_df = df[df['Type'] == 'Pessl']
         for sensor_id in Pessl_df['sensor_id'].unique():
             sensor_data = Pessl_df[Pessl_df['sensor_id'] == sensor_id]
             fig.add_trace(
@@ -80,7 +86,7 @@ def update_chart(selected_groups):
 
     # Add Rain data (bars)
     #if 'rain' in selected_groups:
-    rain_df = df[df['Type'] == 'Rain']
+    # rain_df = df[df['Type'] == 'Rain']
     for sensor_id in rain_df['sensor_id'].unique():
         sensor_data = rain_df[rain_df['sensor_id'] == sensor_id]
         fig.add_trace(
