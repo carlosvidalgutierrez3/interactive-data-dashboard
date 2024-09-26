@@ -1,0 +1,5 @@
+# ignore private datasets
+csv_files/private*
+
+# ignore logo
+logo.png

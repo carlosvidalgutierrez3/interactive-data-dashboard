@@ -3,12 +3,12 @@ File Name: checkboxes.py
 Author: Carlos Vidal
 Date Created: 2024-09-25
 Last Modified: 2024-09-26
-Version: 1.6
+Version: 1.6.1
 Description:
     Use checkboxes to toogle datasets.
 
 Changes:
-- Add new sensor formats from Pessl
+- Add logo
 """
 
 from dash import Dash, dcc, html, Input, Output
@@ -33,7 +33,32 @@ color_px = ['rgb(0,127,127)','rgb(0,0,0)','rgb(102,0,204)']
 
 # Define the app layout
 app.layout = html.Div([
-    html.H4('Soil Moisture and Rain Data v1.6'),
+    # html.H4('Soil Moisture and Rain Data v1.6.1'),
+    
+    # Header Section with logo
+    html.Div(
+        children=[
+            html.Img(
+                src="/assets/logo.png",  # Ensure this path is correct and matches your file name
+                style={
+                    'height': '60px',  # Set the height of the logo
+                    'margin': '0 auto',  # Center the logo horizontally
+                    'display': 'block',  # Ensure it behaves like a block element
+                }
+            ),
+        ],
+        style={
+            'background-color': '#38ccfc',  # Set your desired color
+            'padding': '10px',  # Add padding to make it look good
+            'text-align': 'center',  # Center the content inside the header
+            'width': '100%',  # Full width
+            'position': 'relative',  # Position it relative to the page
+            'top': 0,  # Keep it at the top
+            'left': 0,  # Align it to the left
+            'z-index': '1000',  # Make sure it's on top
+            'margin-bottom': '20px',  # Add space between the header and the graph
+        }
+    ),
     dcc.Graph(
         id="graph",
         style={'width': '80vw', 'height': '80vh'}
@@ -47,7 +72,7 @@ app.layout = html.Div([
         ],
         value=[],  # Start with no data displayed
         inline=True
-    ),
+    )
 ])
 
 # Define the callback to update the graph based on the selected checklist values
@@ -153,11 +178,11 @@ def update_chart(selected_groups):
     # Update layout for dual y-axes
     fig.update_layout(
         yaxis=dict(
-            title='Soil Moisture',
+            title='VWC (%)',
             showgrid=True,
         ),
         yaxis2=dict(
-            title='Rain',
+            title='Rain (mm/10min)',
             overlaying='y',
             side='right',
             showgrid=False
