@@ -3,12 +3,12 @@ File Name: checkboxes.py
 Author: Carlos Vidal
 Date Created: 2024-09-25
 Last Modified: 2024-09-26
-Version: 1.2
+Version: 1.4
 Description:
     Use checkboxes to toogle datasets.
 
 Changes:
-- Keep rain color blue
+- Color of 30cm same as 10cm but less opacity
 """
 
 from dash import Dash, dcc, html, Input, Output
@@ -25,9 +25,12 @@ rain_df = pd.read_csv('csv_files/Type_Rain.csv')
 Pessl_df = pd.read_csv('csv_files/Type_Pessl.csv')
 SM_df = pd.read_csv('csv_files/Type_SM.csv')
 
+# List of colors
+colorlist = ['rgb(200,0,0)','rgb(0,200,0)','rgb(0,0,255)','rgb(127,127,0)','rgb(127,0,127)','rgb(0,127,127)','rgb(0,0,0)']
+
 # Define the app layout
 app.layout = html.Div([
-    html.H4('Soil Moisture and Rain Data v1.2'),
+    html.H4('Soil Moisture and Rain Data v1.4'),
     dcc.Graph(
         id="graph",
         style={'width': '80vw', 'height': '80vh'}
@@ -52,21 +55,42 @@ app.layout = html.Div([
 def update_chart(selected_groups):
     fig = go.Figure()
 
+    # Color list position
+    i = 0
     # Add SM data (lines)
     if 'SM' in selected_groups:
-        # SM_df = df[df['Type'] == 'SM']
         for sensor_id in SM_df['sensor_id'].unique():
             sensor_data = SM_df[SM_df['sensor_id'] == sensor_id]
+
+            # Add 10cm
             fig.add_trace(
                 go.Scatter(
                     x=sensor_data['Date'],
-                    y=sensor_data['Value'],
+                    y=sensor_data['10cm'],
                     mode='lines',
-                    name=f'Soil Moisture {sensor_id}',
+                    name=f'10cm {sensor_id}',
                     yaxis='y1',
-                    visible='legendonly'  # Default visibility set to legendonly
+                    visible='legendonly',  # Default visibility set to legendonly
+                    line=dict(color=colorlist[i]),
+                    opacity=0.5
                 )
             )
+
+            # Add 30cm
+            fig.add_trace(
+                go.Scatter(
+                    x=sensor_data['Date'],
+                    y=sensor_data['30cm'],
+                    mode='lines',
+                    name=f'30cm {sensor_id}',
+                    yaxis='y1',
+                    visible='legendonly',  # Default visibility set to legendonly
+                    line=dict(color=colorlist[i])
+                )
+            )
+
+            # Next color in the list
+            i = i+1
 
     # Add Pessl data (lines)
     if 'Pessl' in selected_groups:
