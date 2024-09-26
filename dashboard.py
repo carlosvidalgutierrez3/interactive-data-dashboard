@@ -3,12 +3,12 @@ File Name: checkboxes.py
 Author: Carlos Vidal
 Date Created: 2024-09-25
 Last Modified: 2024-09-26
-Version: 1.1
+Version: 1.2
 Description:
     Use checkboxes to toogle datasets.
 
 Changes:
-- Now we use a different csv for every sensor type
+- Keep rain color blue
 """
 
 from dash import Dash, dcc, html, Input, Output
@@ -95,6 +95,7 @@ def update_chart(selected_groups):
                 y=sensor_data['Value'],
                 name=f'Rain {sensor_id}',
                 yaxis='y2',
+                marker_color='blue',
                 opacity=0.6
             )
         )
