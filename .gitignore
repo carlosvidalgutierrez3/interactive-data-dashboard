@@ -3,3 +3,6 @@ csv_files/private*
 
 # ignore logo
 logo.png
+
+# ignore environment
+.venv/
